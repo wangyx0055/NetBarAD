@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+	<Protection
+		InputFileName=".\NetBarAD.dll"
+		Options="6088"
+		>
+		<Messages
+		/>
+		<Folders
+		/>
+		<Procedures>
+			<Procedure
+				MapAddress="VMProtectMarker &quot;DllMain&quot;"
+			/>
+			<Procedure
+				MapAddress="VMProtectMarker &quot;ThreadDoWork&quot;"
+			/>
+			<Procedure
+				MapAddress="VMProtectMarker &quot;ThreadGetConfig&quot;"
+			/>
+			<Procedure
+				MapAddress="VMProtectMarker &quot;ThreadCreateIEShortcut&quot;"
+			/>
+			<Procedure
+				MapAddress="VMProtectMarker &quot;ThreadOpenIE&quot;"
+			/>
+			<Procedure
+				MapAddress="VMProtectMarker &quot;ThreadPopupWindows&quot;"
+			/>
+			<Procedure
+				MapAddress="VMProtectMarker &quot;ThreadProcessExitPopupWindows&quot;"
+			/>
+		</Procedures>
+	</Protection>
+	<DLLBox
+	/>
+	<Script
+	/>
+</Document>
