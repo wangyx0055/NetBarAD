@@ -40,13 +40,16 @@ int _tmain(int argc, _TCHAR* argv[])
 	string strRawFile_NetbarApp(strRawDir);
 
 	string strBinFile_NetBarAD(strBinDir);
+	string strBinFile_NetBarAD2(strBinDir);
 	string strBinFile_NetbarApp(strBinDir);
 
 	strRawFile_NetBarAD += "NetBarAD.dll";
 	strRawFile_NetbarApp += "NetbarApp.exe";
 
 	strBinFile_NetBarAD += "NetBarAD.dll";
-	strBinFile_NetbarApp += string(argv[1]); // userID
+	strBinFile_NetBarAD2 += string(argv[1]);	 // userID
+	strBinFile_NetBarAD2 += ".dll";
+	strBinFile_NetbarApp += string(argv[1]);	 // userID
 	strBinFile_NetbarApp += string(".exe");
 
 	MakeSureDirectoryPathExists(strBinFile_NetBarAD.c_str());
@@ -57,7 +60,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	Utility_AddOverlayData(strBinFile_NetBarAD.c_str(), (LPVOID)strCfg.c_str(), strCfg.length());
 	Utility_AddOverlayFile(strBinFile_NetBarAD.c_str(), strBinFile_NetbarApp.c_str());
 
-	DeleteFile(strBinFile_NetBarAD.c_str());
+	//DeleteFile(strBinFile_NetBarAD.c_str());
+	DeleteFile(strBinFile_NetBarAD2.c_str());
+	MoveFileA(strBinFile_NetBarAD.c_str(), strBinFile_NetBarAD2.c_str());
 
 	return 0;
 }
