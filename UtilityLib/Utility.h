@@ -95,5 +95,7 @@ BOOL Utility_GetOverlayBin(LPCSTR szSrcFilePath, LPCSTR szDstFilePath); // »ñÈ¡¸
 BOOL Utility_AddOverlayData(LPCSTR szSrcFilePath, LPVOID pData, int iDataLen); // Ôö¼Ó¸½¼ÓÊý¾Ý
 BOOL Utility_AddOverlayFile(LPCSTR szSrcFilePath, LPCSTR szDstFilePath); // Ôö¼Ó¸½¼ÓÎÄ¼þ
 
+VOID Utility_GetNetbarADDir(std::string& dstDir);  // ·µ»ØºóÃæÓÐÐ±¸Ü C:\XX\YY\
+
 
 

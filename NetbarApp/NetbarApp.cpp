@@ -38,18 +38,15 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 VOID DoWork(VOID)
 {
 	//  Õ∑≈DLL
-	string strWinFolder;
 	string strFile_NetBarAD;
 	string strFile_YiDian;
 	string strFile_RightCorner;
 	string strFile_IEBrowse;
 	string strDstDir;
-	Utility_GetWindowsFolder(strWinFolder);
-	Utility_GetSysTmpFolder(strWinFolder);
+	//Utility_GetWindowsFolder(strWinFolder);
 	Utility_GetSysTmpFolder(strFile_IEBrowse);
-	
+	Utility_GetNetbarADDir(strDstDir);
 
-	strDstDir				     = strWinFolder + "\\NetbarAD\\";
 	strFile_NetBarAD      = strDstDir + "NetBarAD.dll";
 	strFile_YiDian            = strDstDir + "Yidian.exe";
 	strFile_RightCorner   = strDstDir + "RightCorner.exe";

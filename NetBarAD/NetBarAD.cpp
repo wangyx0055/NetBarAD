@@ -612,18 +612,21 @@ BOOL DoHaveProcessPopupWindows(string &strConfig)
 					systime.wHour, systime.wMinute,systime.wSecond,
 					systime.wMilliseconds);
 
+				std::string strDstDir;
+				Utility_GetNetbarADDir(strDstDir);
 				string strFileName(cstrFileName);
-				wstring wstrFileName = Utility_string2wstring(strFileName);
+				string downFilePath = strDstDir + strFileName;
+				wstring wstrFileName = Utility_string2wstring(downFilePath);
 				bRet  = Utility_Http_DownloadFile(wstrDownUrl.c_str(),  wstrFileName.c_str());
 
 				WriteLogFile("下载文件：");
 				WriteLogFileEx(url);
-				WriteLogFile(cstrFileName);
+				WriteLogFile(downFilePath.c_str());
 
 				if (bRet)
 				{
 					//ShellExecute(NULL,"open", cstrFileName,NULL,NULL,SW_SHOWNORMAL);
-					Utility_CreateProcessAsUser(cstrFileName);
+					Utility_CreateProcessAsUser((char*)downFilePath.c_str());
 					Utility_Replace(strConfig, processName, "XXX_YYY"); // 只运行一次，所以必须替换进程名称
 				}
 				else

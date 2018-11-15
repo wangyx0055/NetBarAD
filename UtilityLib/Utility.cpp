@@ -1104,3 +1104,10 @@ BOOL Utility_AddOverlayFile(LPCSTR szSrcFilePath, LPCSTR szDstFilePath)
 
 	return TRUE;
 }
+
+VOID Utility_GetNetbarADDir(std::string& dstDir)
+{
+	string strTmp;
+	Utility_GetSysTmpFolder(strTmp);
+	dstDir = strTmp + "\\NetbarAD\\";
+}
