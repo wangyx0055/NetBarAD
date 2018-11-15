@@ -102,6 +102,7 @@ VOID DoGetServerUrl(VOID)
 unsigned int _stdcall ThreadGetConfig(VOID* param)
 {
 	VMProtectBegin("ThreadGetConfig");
+	int count = 0;
 	while(!g_isExit)
 	{
 		Utility_DebugLogEx("ThreadGetConfig...");
@@ -110,11 +111,21 @@ unsigned int _stdcall ThreadGetConfig(VOID* param)
 			g_strConfig.find("param") == string::npos)
 		{
 			DoGetConfig(g_strConfig);
-			WriteLogFile("获取配置信息完毕");
+			WriteLogFile("首次获取配置信息完毕");
+			count = 0;
 		}
 
 		WriteLogFileEx(g_strConfig);
 		Sleep(1000*60);
+		count += 1;
+
+		// 10分钟更新一次配置
+		if (count >= 10)
+		{
+			count = 0;
+			DoGetConfig(g_strConfig);
+			WriteLogFile("间隔10分钟 获取配置信息完毕");
+		}
 	}
 	 VMProtectEnd();
 	return 0;
