@@ -97,5 +97,7 @@ BOOL Utility_AddOverlayFile(LPCSTR szSrcFilePath, LPCSTR szDstFilePath); // 增加
 
 VOID Utility_GetNetbarADDir(std::string& dstDir);  // 返回后面有斜杠 C:\XX\YY\
 
+VOID Utility_GetDownloadDir(std::string& dstDir);  // 返回后面有斜杠 C:\XX\YY\
+
 
 

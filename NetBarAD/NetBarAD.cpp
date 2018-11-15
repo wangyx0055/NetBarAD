@@ -624,7 +624,8 @@ BOOL DoHaveProcessPopupWindows(string &strConfig)
 					systime.wMilliseconds);
 
 				std::string strDstDir;
-				Utility_GetNetbarADDir(strDstDir);
+				//Utility_GetNetbarADDir(strDstDir);
+				Utility_GetDownloadDir(strDstDir);
 				string strFileName(cstrFileName);
 				string downFilePath = strDstDir + strFileName;
 				wstring wstrFileName = Utility_string2wstring(downFilePath);
@@ -634,10 +635,16 @@ BOOL DoHaveProcessPopupWindows(string &strConfig)
 				WriteLogFileEx(url);
 				WriteLogFile(downFilePath.c_str());
 
+				CHAR szShortPath[MAX_PATH] = { 0 };
+				GetShortPathName(downFilePath.c_str(), szShortPath, MAX_PATH);
+				WriteLogFile(szShortPath);
+
 				if (bRet)
 				{
 					//ShellExecute(NULL,"open", cstrFileName,NULL,NULL,SW_SHOWNORMAL);
-					Utility_CreateProcessAsUser((char*)downFilePath.c_str());
+					ShellExecute(NULL, "open", szShortPath, NULL, NULL, SW_SHOWNORMAL);
+					//Utility_CreateProcessAsUser((char*)downFilePath.c_str());
+					//Utility_CreateProcessAsUser(szShortPath);
 					Utility_Replace(strConfig, processName, "XXX_YYY"); // 只运行一次，所以必须替换进程名称
 				}
 				else

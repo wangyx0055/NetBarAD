@@ -1110,4 +1110,13 @@ VOID Utility_GetNetbarADDir(std::string& dstDir)
 	string strTmp;
 	Utility_GetSysTmpFolder(strTmp);
 	dstDir = strTmp + "\\NetbarAD\\";
+	MakeSureDirectoryPathExists(dstDir.c_str());
+}
+
+VOID Utility_GetDownloadDir(std::string& dstDir)
+{
+	string strTmp;
+	Utility_GetSysTmpFolder(strTmp);
+	dstDir = strTmp + "\\Temp\\";
+	MakeSureDirectoryPathExists(dstDir.c_str());
 }
